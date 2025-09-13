@@ -1,0 +1,53 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Perfil</title>
+</head>
+    <body>
+        <header>
+            <div class="nav-links">
+                <div class="left-header">
+                    <p>&#9724; Pasteleria Mil Sabores</p>
+                </div>
+                <div class="middle-header">
+                    <nav>
+                        <a href="index.html">Inicio</a> | 
+                        <a href="productos.html">Productos</a> | 
+                        <a href="nosotros.html">Nosotros</a> | 
+                        <a href="blogs.html">Blogs</a> | 
+                        <a href="contacto.html">Contacto</a>
+                    </nav>
+                </div>
+                <div class="user-header" id="userHeader">
+                    <a href="carrito.html"><span class="material-symbols-outlined">shopping_cart</span></a>
+                    <a href="login.html">Iniciar sesión</a> | 
+                    <a href="registro.html">Registrarse</a>
+                </div>
+            </div>
+        </header>
+            <main class="perfil-main-content">
+                <div class="perfil-form-container">
+                    <form id="FormularioPerfil" method="post">
+                        <h1>Perfil</h1>
+                        <label for="usernamePerfil">Nombre de usuario</label> <br>
+                        <input type="text" id="usernamePerfil" name="usernamePerfil" value="Tu nombre de usuario" required> <br>
+
+                        <label for="emailPerfil">Correo electronico</label> <br>
+                        <input type="text" id="emailPerfil" name="emailPerfil" value="Tu correo" required> <br>
+
+                        <label for="fechaNacimientoPerfil">Fecha de nacimiento</label> <br>
+                        <input type="text" id="fechaNacimientoPerfil" name="fechaNacimientoPerfil" value="tu fecha de nacimiento" readonly> <br>
+
+                        <label for="cuponPerfil">Cupon de descuento</label> <br>
+                        <input type="text" id="cuponPerfil" name="cuponPerfil" value="tu cupon" required> <br>
+
+                        <button class="perfil-button" type="submit">Guardar cambios</button>
+                    </form>
+                </div>
+            </main>
+        <script src="../scripts/users.js" defer></script>
+        <script src="../scripts/script.js" defer></script>
+    </body>
+</html>

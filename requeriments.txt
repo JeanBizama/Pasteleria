@@ -1,0 +1,81 @@
+http://10.155.62.214:5504/templeates/register.html
+
+REGISTRO:
+	edad
+	codigo de descuento
+	institucion
+
+GESTION USUARIO:
+	cambiar info
+
+CATALOGO:
+	filtros (tipo torta "cuadrada o circular" y tamaños) con detalles de personalizacion (añadir mensajes especiales)
+
+CARRITO DE COMPRAS:
+    Gestion del carrito (agregar, eliminar y modificar productos)
+    mostrar resumen del carrito
+
+PEDIDOS:
+    confirmacion de pedidos y boleta
+    notificacion de estado de pedido de inicio a fin
+
+ENVIOS:
+    seguimiento de envios y seleccion de fecha de entrega que prefiera el usuario
+
+PROMOCION PRODUCTOS:
+    funcionalidad para que los usuarios puedan compartir tortas y promociones en redes sociales
+
+
+CONTENIDO:
+    Incluir blogs y noticias sobre repostería, recetas, y consejos de los estudiantes de gastronomía de Duoc
+    Compartir productos y promociones en redes sociales
+
+---
+
+Listado de Categorías:
+
+    • Tortas Cuadradas
+    • Tortas Circulares
+    • Postres Individuales
+    • Productos Sin Azúcar
+    • Pastelería Tradicional
+    • Productos sin gluten
+    • Productos Vegana
+    • Tortas Especiales
+
+---
+
+Descripciones de los productos:
+
+    • Torta Cuadrada de Chocolate: Deliciosa torta de chocolate con capas de ganache y un toque
+    de avellanas. Personalizable con mensajes especiales.
+    • Torta Cuadrada de Frutas: Una mezcla de frutas frescas y crema chantilly sobre un suave
+    bizcocho de vainilla, ideal para celebraciones.
+    • Torta Circular de Vainilla: Bizcocho de vainilla clásico relleno con crema pastelera y cubierto
+    con un glaseado dulce, perfecto para cualquier ocasión.
+    • Torta Circular de Manjar: Torta tradicional chilena con manjar y nueces, un deleite para los
+    amantes de los sabores dulces y clásicos.
+    • Mousse de Chocolate: Postre individual cremoso y suave, hecho con chocolate de alta
+    calidad, ideal para los amantes del chocolate.
+    • Tiramisú Clásico: Un postre italiano individual con capas de café, mascarpone y cacao,
+    perfecto para finalizar cualquier comida.
+    • Torta Sin Azúcar de Naranja: Torta ligera y deliciosa, endulzada naturalmente, ideal para
+    quienes buscan opciones más saludables.
+    • Cheesecake Sin Azúcar: Suave y cremoso, este cheesecake es una opción perfecta para
+    disfrutar sin culpa.
+    • Empanada de Manzana: Pastelería tradicional rellena de manzanas especiadas, perfecta
+    para un dulce desayuno o merienda.
+    • Tarta de Santiago: Tradicional tarta española hecha con almendras, azúcar, y huevos, una
+    delicia para los amantes de los postres clásicos.
+    • Brownie Sin Gluten: Rico y denso, este brownie es perfecto para quienes necesitan evitar
+    el gluten sin sacrificar el sabor.
+    • Pan Sin Gluten: Suave y esponjoso, ideal para sándwiches o para acompañar cualquier
+    comida.
+    • Torta Vegana de Chocolate: Torta de chocolate húmeda y deliciosa, hecha sin productos de
+    origen animal, perfecta para veganos.
+    • Galletas Veganas de Avena: Crujientes y sabrosas, estas galletas son una excelente opción
+    para un snack saludable y vegano.
+    • Torta Especial de Cumpleaños: Diseñada especialmente para celebraciones, personalizable
+    con decoraciones y mensajes únicos.
+    • Torta Especial de Boda: Elegante y deliciosa, esta torta está diseñada para ser el centro de
+    atención en cualquier boda.
