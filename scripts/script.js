@@ -3,6 +3,7 @@ const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));
 
 if (usuarioLogueado && userHeader) {
     userHeader.innerHTML = `
+        <a href="carrito.html"><span class="material-symbols-outlined">shopping_cart</span></a>
         <div class="dropdown">
             Hola, ${usuarioLogueado.username} ▼
             <div class="dropdown-content" id="dropdownMenu">

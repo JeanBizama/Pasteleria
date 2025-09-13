@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* utiliza el espacio disponible y empuja el footer hacia el final*/
+}
+
+.nav-body{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #947259; 
+    color: #F5EFE6
+}
+
+.nav-body a{
+    text-decoration: none;
+    color: #F5EFE6;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-body a:hover {
+    color: #FFC0CB; 
+}
+
+footer {
+    background-color: #5F4B3C;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    border-top: 2px solid #947259;
+}
+
+header {
+    height: 100px;
+}
+
+body {
+    padding-top: 100px;
+}

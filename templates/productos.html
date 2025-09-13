@@ -1,13 +1,15 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="../styles/style_index.css">
+    <link rel="stylesheet" href="../styles/style_productos.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart" />
-    <title>Registro</title>
+    <title>Productos</title>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="nav-links">
             <div class="left-header">
@@ -23,24 +25,65 @@
                 </nav>
             </div>
             <div class="user-header" id="userHeader">
-                <a href="carrito.html"><span class="material-symbols-outlined">shopping_cart</span></a>
+                <a href="carrito.html" style="position:relative">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span id="cartBadge" style="position: absolute; top: -8px; right: -8px; background:#E9897E; color:white; padding:2px 6px; border-radius:50%; font-size:0.8rem;"></span>
+                </a>
                 <a href="login.html">Iniciar sesión</a> | 
                 <a href="registro.html">Registrarse</a>
             </div>
         </div>
     </header>
-    <nav class = "nav-body">
-        <p>Tortas Cuadradas</p> | 
-        <p>Tortas circulares</p> | 
-        <p>Postres individuales</p> | 
-        <p>Productos sin azucar</p> | 
-        <p>Pasteleria tradicional</p> | 
-        <p>Productos sin gluten</p> | 
-        <p>Productos veganos</p> | 
-        <p>Tortas especiales</p> 
-    </nav>
-    
 
+    <!-- Categorías -->
+    <nav class="nav-body">
+        <a href="#">Tortas Cuadradas</a>
+        <a href="#">Tortas circulares</a>
+        <a href="#">Postres individuales</a>
+        <a href="#">Productos sin azúcar</a>
+        <a href="#">Pastelería tradicional</a>
+        <a href="#">Productos sin gluten</a>
+        <a href="#">Productos veganos</a>
+        <a href="#">Tortas especiales</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <section class="products-container">
+            <div class="product-item">
+                <h3>Torta de Chocolate</h3>
+                <p>Precio: $15.000</p>
+                <button class="products-button" onclick="addToCart('Torta de Chocolate', 15000)">Añadir al carrito</button>
+            </div>
+            <div class="product-item">
+                <h3>Postre Individual de Frutilla</h3>
+                <p>Precio: $3.500</p>
+                <button class="products-button" onclick="addToCart('Postre de Frutilla', 3500)">Añadir al carrito</button>
+            </div>
+            <div class="product-item">
+                <h3>Torta Vegana de Vainilla</h3>
+                <p>Precio: $18.000</p>
+                <button class="products-button" onclick="addToCart('Torta Vegana de Vainilla', 18000)">Añadir al carrito</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="nav-links">
+            <div class="left-footer">
+                <p>Pasteleria Mil Sabores</p>  
+            </div>
+            <div class="middle-footer">
+                <p>© 2025 - Todos los derechos reservados</p>
+            </div>
+            <div class="right-footer">
+                <p>Contacto: info@milSabores.cl</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/cart.js" defer></script>
     <script src="../scripts/script.js" defer></script>
 </body>
 </html>
