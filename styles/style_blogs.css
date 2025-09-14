@@ -29,7 +29,7 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
-    background-color: #FFF9F3; 
+    background-color: #fffbf0; 
     border: 1px solid #E0D2C0; 
     border-radius: 12px; 
     margin-bottom: 20px; 
@@ -67,37 +67,17 @@
 }
 
 .case-image {
-    flex: 0 0 300px; /* Ancho fijo para la imagen */
+    flex: 0 0 300px; /* Ancho fijo en desktop */
     height: 200px;
-    border: 1px solid #E0D2C0; 
+    border: 1px solid #E0D2C0; /* Borde crema para consistencia */
     border-radius: 5px;
     position: relative;
-    background-color: #F5EFE6; 
+    overflow: hidden; /* Evita que la imagen desborde */
 }
 
-.case-image span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #5F4B3C; 
-    font-size: 1em;
-    font-family: "Lato", sans-serif;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .blogs-main-content {
-        padding-top: 100px; 
-    }
-
-    .blog-case {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .case-image {
-        width: 100%;
-        height: 200px;
-    }
+.case-image img {
+    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+    height: 100%; /* La imagen ocupa toda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen manteniendo proporciones, recortando si es necesario */
+    border-radius: 4px; /* Ajuste para que no se salga del borde redondeado */
 }

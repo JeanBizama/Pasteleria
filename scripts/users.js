@@ -35,7 +35,7 @@ function calcularBeneficio(email, fechaNacimiento, cupon) {
         beneficio = "Descuento del 50% por ser mayor de 50 años.";
     }
 
-    if (cupon.trim().toUpperCase() === "FELICES50") {
+    if (cupon.trim().toUpperCase() === "FELICES50" && descuento === 0) {
         descuento = 10;
         beneficio = "Descuento del 10% de por vida con el cupón FELICES50.";
     }

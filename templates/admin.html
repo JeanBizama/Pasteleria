@@ -31,7 +31,6 @@
             <main class="admin-main-content">
                 <h1>Panel de Administración</h1>
                 <h2>Usuarios</h2> 
-                <button id="btnAgregarUsuario" onclick="agregarUsuario()">Agregar</button>
                 <table border="1" id="tablaUsuarios">
                     <thead>
                         <tr>
@@ -47,7 +46,24 @@
                         
                     </tbody>
                 </table>
-                <p id="finalTabla"></p>
+                <button id="btnAgregarUsuario" onclick="agregarUsuario()">Agregar</button>
+
+                <h2>Productos</h2> 
+                <table border="1" id="tablaProductos">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre producto</th>
+                            <th>Precio</th>
+                            <th>Imagen</th>
+                            <th>Categorias</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+                <button id="btnAgregarProducto" onclick="agregarProducto()">Agregar</button>
             </main>
         <script src="../scripts/admin.js" defer></script>
         <script src="../scripts/script.js" defer></script>

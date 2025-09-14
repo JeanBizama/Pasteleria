@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="dropdown">
                 Hola, ${usuarioLogueado.username} ▼
                 <div class="dropdown-content" id="dropdownMenu">
-                    <a href="perfil.html">Perfil</a>
                     <a href="admin.html">Administración</a>
                     <a href="#" id="logout">Cerrar sesión</a>
                 </div>

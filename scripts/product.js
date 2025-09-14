@@ -9,33 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             prod = JSON.parse(raw);
         } catch (e) {
+            console.error('Error al parsear producto desde localStorage:', e);
             prod = null;
         }
     }
 
-    // Si no hay en localStorage, intentamos leer parámetros de URL (fallback)
-    if (!prod) {
-        const params = new URLSearchParams(window.location.search);
-        const nombre = params.get('nombre') || params.get('name');
-        const precio = params.get('precio') || params.get('price');
-        const imagen = params.get('imagen') || params.get('image');
-        if (nombre) {
-            prod = {
-                nombre: nombre,
-                precio: precio ? Number(precio) : 0,
-                imagen: imagen || ''
-            };
-        }
-    }
-
-    // Si aún no hay producto, mostramos mensaje y salimos
+    // Si no hay en localStorage, mostramos error (el flujo principal usa localStorage)
     if (!prod) {
         container.innerHTML = '<p>Producto no encontrado. Vuelve a <a href="productos.html">Productos</a>.</p>';
         return;
     }
 
-    // Normalizar campos
-    const nombre = prod.nombre || prod.name || 'Producto';
+    // Normalizar campos usando 'name' en lugar de 'nombre'
+    const nombre = prod.name || prod.id || 'Producto'; // Usamos 'name' como principal
     const precio = prod.precio !== undefined ? Number(prod.precio) : Number(prod.price || 0);
     const imagen = prod.imagen || prod.image || '';
     const descripcion = prod.descripcion || prod.description || prod.desc || 'Descripción corta del producto.';
@@ -49,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="flex:1; min-width:260px;">
                 <h2 style="margin-top:0;">${escapeHtml(nombre)}</h2>
                 <p id="productDescription">${escapeHtml(descripcion)}</p>
-                <p><strong>Precio:</strong> $${precio.toLocaleString()}</p>
+                <p><strong>Precio:</strong> $${precio.toLocaleString('es-CL')}</p>
                 <div style="display:flex; gap:10px; align-items:center; margin-top:10px;">
                     <input id="qtyInput" type="number" min="1" value="1" style="width:80px; padding:6px; border-radius:6px; border:1px solid #ccc;">
                     <button id="addToCartBtn" class="products-button">Añadir al carrito</button>
@@ -66,23 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
     addBtn.addEventListener('click', () => {
         const qty = Math.max(1, Number(qtyInput.value) || 1);
 
-        // Si addToCart acepta imagen, lo usamos; tu cart.js actual acepta (name, price, image)
-        for (let i = 0; i < qty; i++) {
-            // si addToCart no está definido por alguna razón, prevenimos error
-            if (typeof addToCart === 'function') {
+        if (typeof addToCart === 'function') {
+            for (let i = 0; i < qty; i++) {
                 addToCart(nombre, precio, imagen);
-            } else {
-                console.error('addToCart no está definido. Asegúrate de cargar cart.js antes de product.js');
-                alert('Error: función de carrito no disponible.');
-                break;
             }
+            // Opcional: ir al carrito después de añadir (descomentar si lo deseas)
+            // window.location.href = 'carrito.html';
+        } else {
+            console.error('addToCart no está definido. Asegúrate de cargar cart.js antes de product.js');
+            alert('Error: función de carrito no disponible.');
         }
-
-        // Opcional: ir al carrito después de añadir (comenta/descomenta)
-        // window.location.href = 'carrito.html';
     });
 
-    // pequeña función de escape para evitar inyección al renderizar nombres/descr
+    // Función de escape para evitar inyección
     function escapeHtml(text) {
         return String(text)
             .replace(/&/g, '&amp;')

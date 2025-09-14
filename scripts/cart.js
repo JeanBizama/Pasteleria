@@ -1,7 +1,3 @@
-// ========================
-// Gestión del Carrito
-// ========================
-
 function getCart() {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
@@ -131,9 +127,7 @@ function renderCart() {
     });
 }
 
-// ========================
-// Checkout con Descuentos
-// ========================
+// import de funciones de users.js
 
 function checkout() {
     const cart = getCart();
@@ -156,32 +150,15 @@ function checkout() {
 
     const subtotal = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
 
-    // --- Determinar descuento por cupón y por edad ---
     let discountPercent = 0;
-
-    // Cupón CUPON10
-    if (usuarioLogueado.cupon && String(usuarioLogueado.cupon).trim().toUpperCase() === 'CUPON10') {
-        discountPercent = 10;
-    }
-
-    // Mayor de 50 años
-    if (usuarioLogueado.fechaNacimiento) {
-        const nacimiento = new Date(usuarioLogueado.fechaNacimiento);
-        if (!isNaN(nacimiento)) {
-            const hoy = new Date();
-            let edad = hoy.getFullYear() - nacimiento.getFullYear();
-            const mes = hoy.getMonth() - nacimiento.getMonth();
-            if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
-            if (edad >= 50) {
-                discountPercent = Math.max(discountPercent, 50);
-            }
-        }
+    if (usuarioLogueado.email && usuarioLogueado.fechaNacimiento && usuarioLogueado.cupon !== undefined) {
+        const beneficioData = calcularBeneficio(usuarioLogueado.email, usuarioLogueado.fechaNacimiento, usuarioLogueado.cupon);
+        discountPercent = beneficioData.descuento;
     }
 
     const discountAmount = Math.round(subtotal * discountPercent / 100);
     const finalTotal = subtotal - discountAmount;
 
-    // --- Mostrar en modal ---
     modalSubtotalEl.textContent = `$${subtotal.toLocaleString()}`;
 
     if (discountPercent > 0) {
@@ -194,7 +171,6 @@ function checkout() {
 
     modalTotalEl.textContent = `$${finalTotal.toLocaleString()}`;
 
-    // Mostrar modal
     modal.style.display = 'flex';
 
     const closeModal = document.getElementById('closeModal');
@@ -204,7 +180,6 @@ function checkout() {
     if (cancelBtn) cancelBtn.onclick = hideModal;
     modal.querySelector('.modal-overlay').onclick = hideModal;
 
-    // Confirmar compra
     const confirmBtn = document.getElementById('confirmPurchaseBtn');
     if (confirmBtn) {
         confirmBtn.onclick = () => {
