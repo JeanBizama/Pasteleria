@@ -2,6 +2,19 @@ const userHeader = document.getElementById("userHeader");
 const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));
 
 if (usuarioLogueado && userHeader) {
+    if (usuarioLogueado.rol === "admin") {
+    userHeader.innerHTML = `
+        <a href="carrito.html"><span class="material-symbols-outlined">shopping_cart</span></a>
+        <div class="dropdown">
+            Hola, ${usuarioLogueado.username} ▼
+            <div class="dropdown-content" id="dropdownMenu">
+                <a href="perfil.html">Perfil</a>
+                <a href="admin.html">Administración</a>
+                <a href="#" id="logout">Cerrar sesión</a>
+            </div>
+        </div>
+    `;
+    }else {
     userHeader.innerHTML = `
         <a href="carrito.html"><span class="material-symbols-outlined">shopping_cart</span></a>
         <div class="dropdown">
@@ -12,6 +25,7 @@ if (usuarioLogueado && userHeader) {
             </div>
         </div>
     `;
+    }
 
     const dropdown = userHeader.querySelector(".dropdown");
     const dropdownContent = document.getElementById("dropdownMenu");

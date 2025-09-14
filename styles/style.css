@@ -3,7 +3,7 @@ p, label {
 }
 
 main {
-    padding-top: 100px; 
+    padding-top: 120px; 
 }
 
 body {
@@ -309,7 +309,7 @@ button{
 /* ------------------------------------ */
 
 .nosotros-main-content {
-    padding: 20px;
+    padding: 100px;
     background-color: #FFF5E1;
     display: flex;
     justify-content: center;
@@ -331,7 +331,7 @@ button{
     display: flex;
     flex-direction: column; 
     gap: 20px;             
-    align-items: flex-start;
+    align-items: center;
 }
 
 .about-section p {

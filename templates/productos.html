@@ -36,35 +36,172 @@
     </header>
 
     <!-- Categorías -->
-    <nav class="nav-body">
-        <a href="#">Tortas Cuadradas</a>
-        <a href="#">Tortas circulares</a>
-        <a href="#">Postres individuales</a>
-        <a href="#">Productos sin azúcar</a>
-        <a href="#">Pastelería tradicional</a>
-        <a href="#">Productos sin gluten</a>
-        <a href="#">Productos veganos</a>
-        <a href="#">Tortas especiales</a>
+    <nav class="nav-body" id="categoryFilter">
+        <a href="#" data-category="tortas-cuadradas">Tortas Cuadradas</a>
+        <a href="#" data-category="tortas-circulares">Tortas Circulares</a>
+        <a href="#" data-category="postres-individuales">Postres Individuales</a>
+        <a href="#" data-category="sin-azúcar">Productos sin azúcar</a>
+        <a href="#" data-category="pasteleria-tradicional">Pastelería tradicional</a>
+        <a href="#" data-category="sin-gluten">Productos sin gluten</a>
+        <a href="#" data-category="veganos">Productos veganos</a>
+        <a href="#" data-category="especiales">Tortas especiales</a>
+        <a href="#" data-category="all">Todos</a>
     </nav>
 
     <!-- Main -->
     <main>
-        <section class="products-container">
-            <div class="product-item">
+        <section class="products-container" id="productsList">
+            <div class="product-item" data-category="tortas-cuadradas">
                 <h3>Torta de Chocolate</h3>
+                <img src="https://brigams.pe/wp-content/uploads/chocolate-2.jpg" alt="Torta cuadrada de chocolate">
                 <p>Precio: $15.000</p>
                 <button class="products-button" onclick="addToCart('Torta de Chocolate', 15000)">Añadir al carrito</button>
             </div>
-            <div class="product-item">
+
+            <div class="product-item" data-category="postres-individuales">
                 <h3>Postre Individual de Frutilla</h3>
+                <img src="https://www.recetasnestle.com.ar/sites/default/files/srh_recipes/f8f1012b7969ac181b0eea003ea6b8f0.jpg" alt="Postre individual de frutilla">
                 <p>Precio: $3.500</p>
                 <button class="products-button" onclick="addToCart('Postre de Frutilla', 3500)">Añadir al carrito</button>
             </div>
-            <div class="product-item">
+
+            <div class="product-item" data-category="veganos,sin-gluten">
                 <h3>Torta Vegana de Vainilla</h3>
+                <img src="https://happyvegannie.com/wp-content/uploads/2021/07/img-4302-ps-copia.jpg" alt="Torta vegana de vainilla">
                 <p>Precio: $18.000</p>
                 <button class="products-button" onclick="addToCart('Torta Vegana de Vainilla', 18000)">Añadir al carrito</button>
             </div>
+
+            <div class="product-item" data-category="tortas-circulares">
+                <h3>Torta Red Velvet</h3>
+                <img src="https://www.infobae.com/new-resizer/DGoMOTuyK29Gwu_0GG0rzZg4VGk=/arc-anglerfish-arc2-prod-infobae/public/52E6H6YM2NHAHHAR6S7SL47SEM.jpg" alt="Torta red velvet">
+                <p>Precio: $20.000</p>
+                <button class="products-button" onclick="addToCart('Torta Red Velvet', 20000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="postres-individuales,sin-azúcar">
+                <h3>Mini Cheesecake</h3>
+                <img src="https://www.savingdessert.com/wp-content/uploads/2023/08/Mini-Cheesecake-Recipe-10-500x500.jpg" alt="Mini cheesecake">
+                <p>Precio: $4.500</p>
+                <button class="products-button" onclick="addToCart('Mini Cheesecake', 4500)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-cuadradas,especiales">
+                <h3>Torta de Moka</h3>
+                <img src="https://cocinerosargentinos.com/content/recipes/original/recipes.17549.jpg" alt="Torta de moka">
+                <p>Precio: $17.000</p>
+                <button class="products-button" onclick="addToCart('Torta de Moka', 17000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-circulares,sin-gluten">
+                <h3>Torta de Limón</h3>
+                <img src="https://www.bakeandshare.com/wp-content/uploads/2020/10/chiffon-cake-limo%CC%81n-7-500x500.jpg" alt="Torta de limón">
+                <p>Precio: $16.000</p>
+                <button class="products-button" onclick="addToCart('Torta de Limón', 16000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="postres-individuales,veganos">
+                <h3>Mousse de Chocolate Vegano</h3>
+                <img src="https://deliciaskitchen.b-cdn.net/wp-content/uploads/2016/03/mousse-de-chocolate-vegana.jpg" alt="Mousse de chocolate vegano">
+                <p>Precio: $3.800</p>
+                <button class="products-button" onclick="addToCart('Mousse de Chocolate Vegano', 3800)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="pasteleria-tradicional">
+                <h3>Pie de Manzana</h3>
+                <img src="https://annaspasteleria.com/images/_imageBlock/DSC_3536web.jpg" alt="Pie de manzana">
+                <p>Precio: $12.000</p>
+                <button class="products-button" onclick="addToCart('Pie de Manzana', 12000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-especiales,veganos">
+                <h3>Torta Sin Azúcar de Frutos Rojos</h3>
+                <img src="https://www.recetasnestle.cl/sites/default/files/srh_recipes/9abcfeee54a8ddae05bf733b2c9e1b04.jpg" alt="Torta sin azúcar de frutos rojos">
+                <p>Precio: $19.000</p>
+                <button class="products-button" onclick="addToCart('Torta Sin Azúcar de Frutos Rojos', 19000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-cuadradas,sin-gluten">
+                <h3>Torta de Zanahoria</h3>
+                <img src="https://veggiefestchicago.org/wp-content/uploads/2021/04/21-carrot-cake.jpg" alt="Torta de zanahoria">
+                <p>Precio: $15.500</p>
+                <button class="products-button" onclick="addToCart('Torta de Zanahoria', 15500)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="postres-individuales,sin-azúcar">
+                <h3>Brownie Individual</h3>
+                <img src="https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/1f4e3a5f4e4f3b6d1e2c8f6e8b7c9a0b.jpg" alt="Brownie individual">
+                <p>Precio: $3.200</p>
+                <button class="products-button" onclick="addToCart('Brownie Individual', 3200)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="veganos">
+                <h3>Galletas de Avena Veganas</h3>
+                <p>Precio: $2.800</p>
+                <button class="products-button" onclick="addToCart('Galletas de Avena Veganas', 2800)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="pasteleria-tradicional,especiales">
+                <h3>Panqueques con Dulce de Leche</h3>
+                <p>Precio: $5.000</p>
+                <button class="products-button" onclick="addToCart('Panqueques con Dulce de Leche', 5000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-circulares,especiales">
+                <h3>Torta de Maracuyá</h3>
+                <p>Precio: $18.500</p>
+                <button class="products-button" onclick="addToCart('Torta de Maracuyá', 18500)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="postres-individuales,sin-gluten">
+                <h3>Mini Tiramisú</h3>
+                <p>Precio: $4.200</p>
+                <button class="products-button" onclick="addToCart('Mini Tiramisú', 4200)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-especiales,sin-azúcar">
+                <h3>Torta Especial de Chocolate</h3>
+                <p>Precio: $21.000</p>
+                <button class="products-button" onclick="addToCart('Torta Especial de Chocolate', 21000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-cuadradas,veganos">
+                <h3>Torta Vegana de Coco</h3>
+                <p>Precio: $17.500</p>
+                <button class="products-button" onclick="addToCart('Torta Vegana de Coco', 17500)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="pasteleria-tradicional">
+                <h3>Ensalada de Frutas</h3>
+                <p>Precio: $6.000</p>
+                <button class="products-button" onclick="addToCart('Ensalada de Frutas', 6000)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="postres-individuales,especiales">
+                <h3>Panna Cotta</h3>
+                <p>Precio: $4.800</p>
+                <button class="products-button" onclick="addToCart('Panna Cotta', 4800)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="veganos,sin-azúcar">
+                <h3>Barritas Energéticas Veganas</h3>
+                <p>Precio: $2.500</p>
+                <button class="products-button" onclick="addToCart('Barritas Energéticas Veganas', 2500)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-circulares,sin-gluten">
+                <h3>Torta de Nuez</h3>
+                <p>Precio: $19.500</p>
+                <button class="products-button" onclick="addToCart('Torta de Nuez', 19500)">Añadir al carrito</button>
+            </div>
+
+            <div class="product-item" data-category="tortas-especiales,veganos">
+                <h3>Torta de Chocolate y Avellanas</h3>
+                <p>Precio: $22.000</p>
+                <button class="products-button" onclick="addToCart('Torta de Chocolate y Avellanas', 22000)">Añadir al carrito</button>
+            </div>
+
+
         </section>
     </main>
 
@@ -85,5 +222,6 @@
 
     <script src="../scripts/cart.js" defer></script>
     <script src="../scripts/script.js" defer></script>
+    <script src="../scripts/products.js" defer></script>
 </body>
 </html>

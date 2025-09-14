@@ -1,5 +1,60 @@
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
+const adminEmail = "admin@admin.cl";  
+const adminExistente = usuarios.find(u => u.email === adminEmail);
+if (!adminExistente) {
+    const admin = {
+        email: adminEmail,
+        username: "Admin",
+        fechaNacimiento: "1980-01-01",
+        password: "admin",
+        cupon: "", 
+        descuento: 0,
+        beneficio: "Acceso total como administrador.",
+        rol: "admin"
+    };
+    usuarios.push(admin);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+}
+
+function calcularBeneficio(email, fechaNacimiento, cupon) {
+    let beneficio = "No tienes ningún beneficio activo!";
+    let descuento = 0;
+    
+    let nacimiento = new Date(fechaNacimiento);
+    let hoy = new Date();
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    let mes = hoy.getMonth() - nacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+    }
+
+    if (edad >= 50) {
+        descuento = 50;
+        beneficio = "Descuento del 50% por ser mayor de 50 años.";
+    }
+
+    if (cupon.trim().toUpperCase() === "FELICES50") {
+        descuento = 10;
+        beneficio = "Descuento del 10% de por vida con el cupón FELICES50.";
+    }
+
+    let mesNacimiento = nacimiento.getMonth();
+    let diaNacimiento = nacimiento.getDate();
+
+    if (email.includes("@duocuc.cl") || email.includes("@profesor.duocuc.cl")) {
+        if (hoy.getMonth() === mesNacimiento && hoy.getDate() === diaNacimiento) {
+            beneficio = "Torta gratis por cumpleaños (Por ser parte de Duoc).";
+        } else {
+            beneficio = "Eres parte de Duoc, espera tu cumpleaños para una torta gratis.";
+        }
+    }
+
+    return { beneficio, descuento };
+}
+
+
 const formRegistro = document.getElementById("FormularioRegistro");
 if (formRegistro) {
         formRegistro.addEventListener("submit", function(e) {
@@ -12,25 +67,30 @@ if (formRegistro) {
             alert("Las contraseñas no coinciden");
             return;
             }
-        
+            
+            let email = document.getElementById("emailRegistro").value
+            let username = document.getElementById("username").value
+            let fechaNacimiento = document.getElementById("fecha_nacimiento").value
+            let cupon = document.getElementById("cupon").value
+            let { beneficio, descuento } = calcularBeneficio(email, fechaNacimiento, cupon);
+
             const nuevoUsuario = {
-            email: document.getElementById("emailRegistro").value,
-            username: document.getElementById("username").value,
-            fechaNacimiento: document.getElementById("fecha_nacimiento").value,
-            password: document.getElementById("passwordRegistro").value,
-            cupon: document.getElementById("cupon").value
+            email: email,
+            username: username,
+            fechaNacimiento: fechaNacimiento,
+            password: password,
+            cupon: cupon,
+            descuento: descuento,
+            beneficio: beneficio,
+            rol: "cliente"
             };
         
             usuarios.push(nuevoUsuario);
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         
-            console.log("Usuario registrado:", nuevoUsuario);
-            console.log("Lista actual de usuarios:", usuarios);
-        
             alert("Usuario registrado con éxito");
         
             this.reset();
-            
             window.location.href = "login.html";
     });
 }
@@ -99,8 +159,9 @@ if (formPerfil) {
     const emailPerfil = document.getElementById("emailPerfil");
     const fechaNacimientoPerfil = document.getElementById("fechaNacimientoPerfil");
     const cuponPerfil = document.getElementById("cuponPerfil");
-   
+    const beneficioText = document.getElementById("beneficioTexto")
     if (usuarioLogueado) {
+        beneficioText.textContent = usuarioLogueado.beneficio;
         usernamePerfil.value = usuarioLogueado.username;
         emailPerfil.value = usuarioLogueado.email;
         fechaNacimientoPerfil.value = usuarioLogueado.fechaNacimiento;
@@ -114,14 +175,17 @@ if (formPerfil) {
             const nuevoUsername = usernamePerfil.value.trim();
             const nuevoEmail = emailPerfil.value.trim();
             const nuevoCupon = cuponPerfil.value.trim();
-
-
+    
             usuario.username = nuevoUsername;
             usuario.cupon = nuevoCupon; 
 
             if (nuevoEmail !== usuarioLogueado.email) {
                 usuario.email = nuevoEmail;
             }
+
+            const { beneficio: nuevoBeneficio, descuento: nuevoDescuento } = calcularBeneficio(usuario.email, usuario.fechaNacimiento, usuario.cupon);
+            usuario.beneficio = nuevoBeneficio;
+            usuario.descuento = nuevoDescuento;
 
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
 

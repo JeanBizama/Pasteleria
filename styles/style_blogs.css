@@ -1,0 +1,103 @@
+/* Estilos para la página de blogs */
+.blogs-main-content {
+    padding-top: 100px; /* Ajusta para evitar solapamiento con el header fijo */
+    background-color: #FFF5E1; 
+    min-height: calc(100vh - 120px); 
+    
+}
+
+.blogs-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff9f3; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra sutil como en nosotros-container */
+}
+
+.blogs-container h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #5F4B3C; /* Marrón oscuro para títulos */
+    margin-bottom: 40px;
+    font-family: "Pacifico", cursive; /* Consistente con tus títulos */
+}
+
+.blog-case {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #FFF9F3; 
+    border: 1px solid #E0D2C0; 
+    border-radius: 12px; 
+    margin-bottom: 20px; 
+}
+
+.case-text {
+    flex: 1;
+}
+
+.case-text h2 {
+    color: #5F4B3C; /* Marrón oscuro para títulos */
+    margin-bottom: 10px;
+    font-family: "Pacifico", cursive;
+}
+
+.case-text p {
+    color: #7A695B; 
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    font-family: "Lato", sans-serif; /* Consistente con el body */
+}
+
+.case-button {
+    padding: 10px 20px;
+    background-color: #E9897E; 
+    color: #FFF5E1; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.case-button:hover {
+    background-color: #d1756a; 
+}
+
+.case-image {
+    flex: 0 0 300px; /* Ancho fijo para la imagen */
+    height: 200px;
+    border: 1px solid #E0D2C0; 
+    border-radius: 5px;
+    position: relative;
+    background-color: #F5EFE6; 
+}
+
+.case-image span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #5F4B3C; 
+    font-size: 1em;
+    font-family: "Lato", sans-serif;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .blogs-main-content {
+        padding-top: 100px; 
+    }
+
+    .blog-case {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .case-image {
+        width: 100%;
+        height: 200px;
+    }
+}
