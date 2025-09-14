@@ -37,18 +37,24 @@
             <ul id="cartItems">
                 <li>No hay productos en el carrito</li>
             </ul>
-            <p><strong>Total:</strong> <span id="cartTotal">$0</span></p>
+            <p><strong>Subtotal:</strong> <span id="cartTotal">$0</span></p>
             <button id="checkoutBtn">Finalizar compra</button>
         </section>
     </main>
 
     <!-- Modal de compra -->
-    <div id="checkoutModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
+    <div id="checkoutModal" class="modal" style="display:none; position:fixed; inset:0; z-index:2000; align-items:center; justify-content:center;">
+        <div class="modal-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.5);"></div>
+        <div class="modal-content" style="position:relative; background:#fff; padding:20px; border-radius:10px; width:90%; max-width:480px; z-index:2001;">
+            <span id="closeModal" class="close" style="position:absolute; right:12px; top:8px; font-size:22px; cursor:pointer;">&times;</span>
             <h2>Finalizar compra</h2>
-            <p>Total a pagar: <span id="modalTotal">$0</span></p>
-            <button id="confirmPurchaseBtn">Confirmar compra</button>
+            <p>Subtotal: <span id="modalSubtotal">$0</span></p>
+            <p id="modalDiscountRow" style="display:none;">Descuento (<span id="modalDiscountPercent">0</span>%): <span id="modalDiscount">- $0</span></p>
+            <p><strong>Total a pagar:</strong> <span id="modalTotal">$0</span></p>
+            <div style="display:flex; gap:10px; margin-top:12px;">
+                <button id="confirmPurchaseBtn" class="products-button">Confirmar compra</button>
+                <button id="cancelPurchaseBtn" style="background:#ccc; color:#333; border:none; padding:8px 12px; border-radius:8px;">Cancelar</button>
+            </div>
         </div>
     </div>
 

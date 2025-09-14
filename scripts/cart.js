@@ -1,3 +1,7 @@
+// ========================
+// Gestión del Carrito
+// ========================
+
 function getCart() {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
@@ -7,11 +11,11 @@ function saveCart(cart) {
     updateCartBadge();
 }
 
-function addToCart(name, price) {
-    const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+function addToCart(name, price, image = "") {
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     if (!usuarioLogueado) {
-        alert("Debes iniciar sesión para añadir productos al carrito.");
-        window.location.href = "login.html";
+        alert('Debes iniciar sesión para añadir productos al carrito.');
+        window.location.href = 'login.html';
         return;
     }
 
@@ -20,7 +24,7 @@ function addToCart(name, price) {
     if (product) {
         product.quantity = (product.quantity || 1) + 1;
     } else {
-        cart.push({ name: name, price: Number(price), quantity: 1 });
+        cart.push({ name: name, price: Number(price), quantity: 1, image: image });
     }
     saveCart(cart);
     alert(`${name} añadido al carrito`);
@@ -54,8 +58,12 @@ function updateCartBadge() {
     badge.textContent = totalItems > 0 ? totalItems : '';
 }
 
+// ========================
+// Renderizado del Carrito
+// ========================
+
 function renderCart() {
-    const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     const list = document.getElementById('cartItems');
     const totalEl = document.getElementById('cartTotal');
     if (!list || !totalEl) return;
@@ -86,10 +94,13 @@ function renderCart() {
         total += itemTotal;
 
         li.innerHTML = `
-            <div class="cart-item-info">
-                <strong>${item.name}</strong>
-                <div>$${item.price} x <input type="number" min="1" value="${item.quantity}" data-name="${item.name}" class="qty-input" style="width:70px" /></div>
-                <div>Subtotal: $${itemTotal}</div>
+            <div class="cart-item-info" style="display:flex; align-items:center; gap:12px;">
+                ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:60px; height:60px; object-fit:cover; border-radius:5px;">` : ''}
+                <div>
+                    <strong>${item.name}</strong>
+                    <div>$${item.price.toLocaleString()} x <input type="number" min="1" value="${item.quantity}" data-name="${item.name}" class="qty-input" style="width:70px" /></div>
+                    <div>Subtotal: $${(itemTotal).toLocaleString()}</div>
+                </div>
             </div>
             <div class="cart-item-actions">
                 <button class="remove-btn" data-name="${item.name}">Eliminar</button>
@@ -98,7 +109,7 @@ function renderCart() {
         list.appendChild(li);
     });
 
-    totalEl.textContent = `$${total}`;
+    totalEl.textContent = `$${total.toLocaleString()}`;
 
     document.querySelectorAll('.qty-input').forEach(inp => {
         inp.addEventListener('change', (e) => {
@@ -120,26 +131,94 @@ function renderCart() {
     });
 }
 
+// ========================
+// Checkout con Descuentos
+// ========================
+
 function checkout() {
     const cart = getCart();
     if (cart.length === 0) return alert('El carrito está vacío');
 
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado')) || {};
     const modal = document.getElementById('checkoutModal');
-    const modalTotal = document.getElementById('modalTotal');
-    modalTotal.textContent = `$${cart.reduce((sum, it) => sum + it.price * it.quantity, 0)}`;
+    const modalSubtotalEl = document.getElementById('modalSubtotal');
+    const modalDiscountRow = document.getElementById('modalDiscountRow');
+    const modalDiscountPercentEl = document.getElementById('modalDiscountPercent');
+    const modalDiscountEl = document.getElementById('modalDiscount');
+    const modalTotalEl = document.getElementById('modalTotal');
 
-    modal.style.display = 'block';
-
-    document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
-
-    document.getElementById('confirmPurchaseBtn').onclick = () => {
+    if (!(modal && modalSubtotalEl && modalTotalEl)) {
         alert('Compra realizada con éxito. ¡Gracias!');
         clearCart();
         renderCart();
-        modal.style.display = 'none';
-    };
+        return;
+    }
+
+    const subtotal = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
+
+    // --- Determinar descuento por cupón y por edad ---
+    let discountPercent = 0;
+
+    // Cupón CUPON10
+    if (usuarioLogueado.cupon && String(usuarioLogueado.cupon).trim().toUpperCase() === 'CUPON10') {
+        discountPercent = 10;
+    }
+
+    // Mayor de 50 años
+    if (usuarioLogueado.fechaNacimiento) {
+        const nacimiento = new Date(usuarioLogueado.fechaNacimiento);
+        if (!isNaN(nacimiento)) {
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - nacimiento.getFullYear();
+            const mes = hoy.getMonth() - nacimiento.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
+            if (edad >= 50) {
+                discountPercent = Math.max(discountPercent, 50);
+            }
+        }
+    }
+
+    const discountAmount = Math.round(subtotal * discountPercent / 100);
+    const finalTotal = subtotal - discountAmount;
+
+    // --- Mostrar en modal ---
+    modalSubtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+
+    if (discountPercent > 0) {
+        modalDiscountRow.style.display = 'block';
+        modalDiscountPercentEl.textContent = discountPercent;
+        modalDiscountEl.textContent = `- $${Math.abs(discountAmount).toLocaleString()}`;
+    } else {
+        modalDiscountRow.style.display = 'none';
+    }
+
+    modalTotalEl.textContent = `$${finalTotal.toLocaleString()}`;
+
+    // Mostrar modal
+    modal.style.display = 'flex';
+
+    const closeModal = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelPurchaseBtn');
+    const hideModal = () => { modal.style.display = 'none'; };
+    if (closeModal) closeModal.onclick = hideModal;
+    if (cancelBtn) cancelBtn.onclick = hideModal;
+    modal.querySelector('.modal-overlay').onclick = hideModal;
+
+    // Confirmar compra
+    const confirmBtn = document.getElementById('confirmPurchaseBtn');
+    if (confirmBtn) {
+        confirmBtn.onclick = () => {
+            alert('Compra realizada con éxito. ¡Gracias!');
+            clearCart();
+            renderCart();
+            modal.style.display = 'none';
+        };
+    }
 }
+
+// ========================
+// Inicialización
+// ========================
 
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
