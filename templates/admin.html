@@ -29,10 +29,27 @@
             </div>
         </header>
             <main class="admin-main-content">
-                <div class="admin-form-container">
-
-                </div>
+                <h1>Panel de Administración</h1>
+                <h2>Usuarios</h2> 
+                <button id="btnAgregarUsuario" onclick="agregarUsuario()">Agregar</button>
+                <table border="1" id="tablaUsuarios">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nombre de usuario</th>
+                            <th>Contraseña</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Cupon</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+                <p id="finalTabla"></p>
             </main>
+        <script src="../scripts/admin.js" defer></script>
         <script src="../scripts/script.js" defer></script>
     </body>
 </html>
