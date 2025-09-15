@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nombre = prod.name || prod.id || 'Producto'; // Usamos 'name' como principal
     const precio = prod.precio !== undefined ? Number(prod.precio) : Number(prod.price || 0);
     const imagen = prod.imagen || prod.image || '';
-    const descripcion = prod.descripcion || prod.description || prod.desc || 'Descripción corta del producto.';
+    const descripcion = prod.description || prod.descripcion  || prod.desc || 'Descripción corta del producto.';
 
     // Render HTML
     container.innerHTML = `
