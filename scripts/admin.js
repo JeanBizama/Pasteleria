@@ -1,9 +1,11 @@
+//al cargar la pagina actualizar ambas tablas inmediatamente
 actualizarTablaUsuarios();
 actualizarTablaProductos();
 
 const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));
 const path = window.location.pathname;
 
+//solo se podra acceder a esta pagina si el rol del usuario es admin
 if (path.includes("admin.html")) {
     if (!usuarioLogueado || usuarioLogueado.rol !== "admin") {
         alert("Acceso denegado. Debes iniciar sesión como administrador.");
@@ -11,6 +13,7 @@ if (path.includes("admin.html")) {
     }
 }
 
+//funcion para actualizar y mostrar la tabla de datos de USUARIOS
 function actualizarTablaUsuarios() {
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const tablaUsuarios = document.querySelector("#tablaUsuarios tbody");
@@ -30,12 +33,14 @@ function actualizarTablaUsuarios() {
         tablaUsuarios.appendChild(fila);
     });
 
+    //reactiva el boton de agregar cuando se actualice la tabla
     const btnAgregar = document.getElementById("btnAgregarUsuario");
     if (btnAgregar) {
         btnAgregar.disabled = false;
     }
 }
 
+//funcion para agregar usuarios a la tabla y lista usuarios del LocalStorage
 function agregarUsuario() {
     const tablaUsuarios = document.querySelector("#tablaUsuarios tbody");
     if (!tablaUsuarios) {
@@ -57,18 +62,14 @@ function agregarUsuario() {
     `;
     tablaUsuarios.appendChild(fila);
 
-    // Desplazamiento suave después de añadir la fila
-    setTimeout(() => {
-        tablaUsuarios.parentElement.scrollIntoView({ behavior: "smooth", block: "end" });
-        window.scrollBy(0, -70); // Ajusta este valor según el diseño
-    }, 0);
-
+    //al dar click al boton agregar este se desactiva para que se cree uno a la vez
     const btnAgregar = document.getElementById("btnAgregarUsuario");
     if (btnAgregar) {
         btnAgregar.disabled = true;
     }
 }
 
+//funcion para eliminar usuarios 
 function eliminarUsuario(i) {
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     usuarios.splice(i, 1);
@@ -76,6 +77,8 @@ function eliminarUsuario(i) {
     actualizarTablaUsuarios();
 }
 
+
+//funcion para editar usuarios desde la tabla de administracion 
 function editarUsuario(i, boton) {
     const fila = boton.closest("tr");
     const email = fila.querySelector(".email").textContent;
@@ -104,6 +107,7 @@ function editarUsuario(i, boton) {
     }
 }
 
+//funcion para guardar usuario nuevo creado con el boton de agregar
 function guardarUsuario(i, boton) {
     const fila = boton.closest("tr");
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
@@ -127,6 +131,8 @@ function guardarUsuario(i, boton) {
     actualizarTablaUsuarios();
 }
 
+
+//funcion para actualizar y mostrar la tabla de datos de PRODUCTOS
 function actualizarTablaProductos() {
     let productos = JSON.parse(localStorage.getItem("productos")) || [];
     const tablaProductos = document.querySelector("#tablaProductos tbody");
@@ -140,6 +146,7 @@ function actualizarTablaProductos() {
         fila.innerHTML = `
             <td class="id">${p.id || ''}</td>
             <td class="name">${p.name || ''}</td>
+            <td class="description">${p.description || ''}</td>
             <td class="price">${p.price || ''}</td>
             <td class="image">${p.image || ''}</td>
             <td class="categories">${(p.categories || []).join(", ") || ''}</td>
@@ -153,7 +160,7 @@ function actualizarTablaProductos() {
         btnAgregar.disabled = false;
     }
 }
-
+//funcion para agregar productos a la tabla y lista productos del LocalStorage
 function agregarProducto() {
     const tablaProductos = document.querySelector("#tablaProductos tbody");
     if (!tablaProductos) {
@@ -164,6 +171,7 @@ function agregarProducto() {
     fila.innerHTML = `
         <td><input type="text" value="" class="edit-id" placeholder="ID"></td>
         <td><input type="text" value="" class="edit-name" placeholder="Nombre"></td>
+        <td><input type="text" value="" class="edit-desc" placeholder="Descripcion"></td>
         <td><input type="number" value="" class="edit-price" placeholder="Precio"></td>
         <td><input type="text" value="" class="edit-image" placeholder="URL de Imagen"></td>
         <td><input type="text" value="" class="edit-categories" placeholder="Categorías (separadas por coma)"></td>
@@ -174,18 +182,13 @@ function agregarProducto() {
     `;
     tablaProductos.appendChild(fila);
 
-    // Desplazamiento suave después de añadir la fila
-    setTimeout(() => {
-        tablaProductos.parentElement.scrollIntoView({ behavior: "smooth", block: "end" });
-        window.scrollBy(0, -70); // Ajusta este valor según el diseño
-    }, 0);
-
     const btnAgregar = document.getElementById("btnAgregarProducto");
     if (btnAgregar) {
         btnAgregar.disabled = true;
     }
 }
 
+//funcion para eliminar el producto
 function eliminarProducto(i) {
     let productos = JSON.parse(localStorage.getItem("productos")) || [];
     productos.splice(i, 1);
@@ -197,6 +200,7 @@ function editarProducto(i, boton) {
     const fila = boton.closest("tr");
     const id = fila.querySelector(".id").textContent;
     const name = fila.querySelector(".name").textContent;
+    const description = fila.querySelector(".description").textContent;
     const price = fila.querySelector(".price").textContent;
     const image = fila.querySelector(".image").textContent;
     const categories = fila.querySelector(".categories").textContent;
@@ -204,6 +208,7 @@ function editarProducto(i, boton) {
     fila.innerHTML = `
         <td><input type="text" value="${id}" class="edit-id"></td>
         <td><input type="text" value="${name}" class="edit-name"></td>
+        <td><input type="text" value="${description}" class="edit-desc"></td>
         <td><input type="number" value="${price}" class="edit-price"></td>
         <td><input type="text" value="${image}" class="edit-image"></td>
         <td><input type="text" value="${categories}" class="edit-categories"></td>
@@ -219,22 +224,15 @@ function editarProducto(i, boton) {
     }
 }
 
+//funcion para guardar producto nuevo creado con el boton de agregar
 function guardarProducto(i, boton) {
     const fila = boton.closest("tr");
     let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
-    // Depuración: Verifica los valores de los inputs
-    console.log("Valores a guardar:", {
-        id: fila.querySelector(".edit-id").value,
-        name: fila.querySelector(".edit-name").value,
-        price: fila.querySelector(".edit-price").value,
-        image: fila.querySelector(".edit-image").value,
-        categories: fila.querySelector(".edit-categories").value
-    });
-
     const nuevoProducto = {
         id: fila.querySelector(".edit-id").value,
         name: fila.querySelector(".edit-name").value,
+        description: fila.querySelector(".edit-desc").value,
         price: Number(fila.querySelector(".edit-price").value) || 0,
         image: fila.querySelector(".edit-image").value,
         categories: fila.querySelector(".edit-categories").value.split(",").map(cat => cat.trim()).filter(cat => cat)
@@ -252,11 +250,12 @@ function guardarProducto(i, boton) {
         }
     }
 
+    //guardar lista productos en LocalStorage
     localStorage.setItem("productos", JSON.stringify(productos));
     actualizarTablaProductos();
 }
 
-// Llamar a la función al cargar la página si estás en admin.html
+
 if (path.includes("admin.html")) {
     actualizarTablaProductos();
 }

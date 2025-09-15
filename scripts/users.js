@@ -1,8 +1,11 @@
+//Obtener lista de usuarios del LocalStorage
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
+//Crear usuario ADMIN si es que no existe
 const adminEmail = "admin@admin.cl";  
 const adminExistente = usuarios.find(u => u.email === adminEmail);
 if (!adminExistente) {
+    //crear el usuario admin
     const admin = {
         email: adminEmail,
         username: "Admin",
@@ -13,10 +16,12 @@ if (!adminExistente) {
         beneficio: "Acceso total como administrador.",
         rol: "admin"
     };
+    //ingresar el usuario admin a la lista usuarios y luego setearlo en el LocalStorage
     usuarios.push(admin);
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 }
 
+//Funcion para calcular el beneficio
 function calcularBeneficio(email, fechaNacimiento, cupon) {
     let beneficio = "No tienes ningún beneficio activo!";
     let descuento = 0;
@@ -54,7 +59,7 @@ function calcularBeneficio(email, fechaNacimiento, cupon) {
     return { beneficio, descuento };
 }
 
-
+//funcion del formulario registro para guardar usuarios en la lista usuarios de LocalStorage
 const formRegistro = document.getElementById("FormularioRegistro");
 if (formRegistro) {
         formRegistro.addEventListener("submit", function(e) {
@@ -95,6 +100,7 @@ if (formRegistro) {
     });
 }
 
+//funcion de login para logearse a la pagina, usando la lista usuarios de localStorage como bd
 const formLogin = document.getElementById("FormularioInicio");
 if (formLogin) {
         formLogin.addEventListener("submit", function(e) {
@@ -123,6 +129,7 @@ if (formLogin) {
     });
 }
 
+//funcion para restaurar/cambiar contraseña como usuario
 const formRecuperar = document.getElementById("FormularioRecuperar");
 if (formRecuperar) {
     formRecuperar.addEventListener("submit", function(e) {
@@ -152,6 +159,7 @@ if (formRecuperar) {
     });
 }
 
+//funcion para mostrar el perfil y cambiar datos segun el usuario requiera
 const formPerfil = document.getElementById("FormularioPerfil")
 if (formPerfil) {
     const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));

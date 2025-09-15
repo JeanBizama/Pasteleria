@@ -1,3 +1,5 @@
+// Script para la pagina de detalle del producto
+// Permite visualizar la informacion del producto que fue seleccionado
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('productDetail');
 

@@ -45,7 +45,7 @@
                 <label for="message">MENSAJE</label>
                 <textarea type="message" id="message" rows="5" required></textarea>
 
-                <button type="submit" class="contact-button">ENVIAR</button>
+                <button type="submit" class="contact-button" onclick="contact()">ENVIAR</button>
             </form>
         </div>
     </main>
@@ -62,6 +62,11 @@
             </div>
         </div>
     </footer>
+    <script>
+        function contact() {
+            alert("Su solicitud de contacto ha sido enviada exitosamente")
+        }
+    </script>
     <script src="../scripts/script.js" defer></script>
 </body>
 </html>

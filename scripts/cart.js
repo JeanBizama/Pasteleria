@@ -1,12 +1,15 @@
+// Obtener el carrito desde el localStorage
 function getCart() {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
 
+// Guardar el carrito en el localStorage y actualizar indicador
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartBadge();
 }
 
+// Añadir producto al carrito (necesario el inicio de sesión)
 function addToCart(name, price, image = "") {
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     if (!usuarioLogueado) {
@@ -26,12 +29,14 @@ function addToCart(name, price, image = "") {
     alert(`${name} añadido al carrito`);
 }
 
+// Eliminar producto del carrito
 function removeFromCart(name) {
     let cart = getCart();
     cart = cart.filter(item => item.name !== name);
     saveCart(cart);
 }
 
+// Actualizar cantidad de un producto en el carrito
 function updateQuantity(name, quantity) {
     let cart = getCart();
     const it = cart.find(i => i.name === name);
@@ -41,11 +46,13 @@ function updateQuantity(name, quantity) {
     saveCart(cart);
 }
 
+// Vaciar el carrito
 function clearCart() {
     localStorage.removeItem('cart');
     updateCartBadge();
 }
 
+// Actualizar el contador del carrito en la interfaz
 function updateCartBadge() {
     const badge = document.getElementById('cartBadge');
     if (!badge) return;
@@ -54,10 +61,8 @@ function updateCartBadge() {
     badge.textContent = totalItems > 0 ? totalItems : '';
 }
 
-// ========================
-// Renderizado del Carrito
-// ========================
 
+// Renderizar los items del carrito en la página
 function renderCart() {
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     const list = document.getElementById('cartItems');
@@ -83,6 +88,7 @@ function renderCart() {
 
     let total = 0;
 
+    // Generacion dinamica de elementos del carrito
     cart.forEach(item => {
         const li = document.createElement('li');
         li.className = 'cart-item';
@@ -107,6 +113,7 @@ function renderCart() {
 
     totalEl.textContent = `$${total.toLocaleString()}`;
 
+    // Configuracion de eventos para inputs y botones
     document.querySelectorAll('.qty-input').forEach(inp => {
         inp.addEventListener('change', (e) => {
             const name = e.target.dataset.name;
@@ -128,7 +135,8 @@ function renderCart() {
 }
 
 // import de funciones de users.js
-
+// mostrar modal con resumen, aplica descuentos si corresponde
+// Procesa la compra al confirmar
 function checkout() {
     const cart = getCart();
     if (cart.length === 0) return alert('El carrito está vacío');
@@ -150,6 +158,7 @@ function checkout() {
 
     const subtotal = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
 
+    // calcular descuentos basados en información del usuario
     let discountPercent = 0;
     if (usuarioLogueado.email && usuarioLogueado.fechaNacimiento && usuarioLogueado.cupon !== undefined) {
         const beneficioData = calcularBeneficio(usuarioLogueado.email, usuarioLogueado.fechaNacimiento, usuarioLogueado.cupon);
@@ -161,6 +170,7 @@ function checkout() {
 
     modalSubtotalEl.textContent = `$${subtotal.toLocaleString()}`;
 
+    // Mostrar o ocultar fila de descuento
     if (discountPercent > 0) {
         modalDiscountRow.style.display = 'block';
         modalDiscountPercentEl.textContent = discountPercent;
@@ -191,10 +201,8 @@ function checkout() {
     }
 }
 
-// ========================
-// Inicialización
-// ========================
 
+// Configuracion inicial al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
     renderCart();

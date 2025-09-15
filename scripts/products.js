@@ -1,3 +1,4 @@
+//Se crea la lista de productos si no existe previamente la lista de productos base
 if (!localStorage.getItem('productos')) { 
   const productos = [
         {
@@ -294,16 +295,18 @@ if (!localStorage.getItem('productos')) {
     localStorage.setItem('productos', JSON.stringify(productos));
 }
 
-
+//funcion para guardar la lista de productos en el localStorage
 function guardarProductos() {
     localStorage.setItem('productos', JSON.stringify(productos));
 }
 
+// funcion para cargar los productos de la lista en el localStorage
 function cargarProductos() {
     const storedProducts = localStorage.getItem('productos');
     return storedProducts ? JSON.parse(storedProducts) : productos;
 }
 
+//funcion que muestra los productos en el html
 function renderProductos(products) {
     const productsList = document.getElementById('productsList');
     if (!productsList) {
@@ -326,6 +329,7 @@ function renderProductos(products) {
     });
 }
 
+//funcion que lleva hacia la pagina "producto.html" para mostrar el detalle de producto
 function verProducto(name, precio, imagen, description) {
     const producto = {
         name: name,
