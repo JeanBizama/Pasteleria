@@ -10,7 +10,7 @@
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    background-color: #fff9f3; 
+    background-color: #fff7eb; 
     border-radius: 12px; 
     box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra sutil como en nosotros-container */
 }
@@ -29,8 +29,8 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
-    background-color: #fffbf0; 
-    border: 1px solid #E0D2C0; 
+    background-color: #fffbf6; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra sutil como en nosotros-container */
     border-radius: 12px; 
     margin-bottom: 20px; 
 }
