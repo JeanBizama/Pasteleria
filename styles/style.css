@@ -83,6 +83,15 @@ button {
     background-color: #5F4B3C; 
     color: #F5EFE6; 
     border: none; 
+    gap: 10px;
+}
+
+.left-header .logo {
+    height: 60px;
+    width: auto;
+    background-color: #F5EFE6;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .dropdown {
